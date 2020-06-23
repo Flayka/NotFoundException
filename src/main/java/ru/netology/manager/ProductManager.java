@@ -16,9 +16,21 @@ public class ProductManager {
         repository.save(item);
     }
 
+    public Product[] findAll() {
+        return repository.findAll();
+    }
+
+    public Product findById(int id) {
+        return repository.findById(id);
+    }
+
+    public void removeById(int id) {
+        repository.removeById(id);
+    }
+
     public Product[] searchBy(String text) {
         Product[] result = new Product[0];
-        for (Product product: repository.findAll()) {
+        for (Product product : repository.findAll()) {
             if (matches(product, text)) {
                 Product[] tmp = new Product[result.length + 1];
                 System.arraycopy(result, 0, tmp, 0, result.length);
@@ -27,9 +39,6 @@ public class ProductManager {
             }
         }
         return result;
-    }
-    public Product[] findAll() {
-        return repository.findAll();
     }
 
     public boolean matches(Product product, String search) {
@@ -43,7 +52,6 @@ public class ProductManager {
                 return true;
             }
         }
-
         if (product instanceof TShirt) {
             TShirt tShirt = (TShirt) product;
             if (tShirt.getName().equalsIgnoreCase(search)) {
@@ -54,9 +62,5 @@ public class ProductManager {
             }
         }
         return false;
-    }
-
-    public void removeById(int id){
-        repository.removeById(id);
     }
 }
